@@ -10,10 +10,12 @@
     <description>The kLock Project</description>
 
     <properties>
-        <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+
+        <nexus.url>http://120.79.2.30:8081</nexus.url>
     </properties>
 
     <licenses>
@@ -23,13 +25,7 @@
         </license>
     </licenses>
     <developers>
-        <developer>
-            <name>kl</name>
-            <email>632104866@qq.com</email>
-            <organization>凯京集团</organization>
-            <organizationUrl>http://www.keking.cn/</organizationUrl>
-            <url>http://www.kailing.pub/</url>
-        </developer>
+
     </developers>
 
     <dependencies>
@@ -91,6 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -101,7 +98,9 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
@@ -115,15 +114,18 @@
             </plugin>
         </plugins>
     </build>
-    <!-- distribute目录 -->
+    <!--mavne 发布-->
     <distributionManagement>
         <snapshotRepository>
-            <id>repo</id>
-            <url>http://ops.keking.cn:8081/nexus/content/repositories/snapshots</url>
+            <!--这里id要和maven的setting.xml中配置的一致-->
+            <id>snapshots</id>
+            <name>maven-snapshots</name>
+            <url>${nexus.url}/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>repo</id>
-            <url>http://ops.keking.cn:8081/nexus/content/repositories/releases</url>
+            <id>repository</id>
+            <name>ymu-hosted</name>
+            <url>${nexus.url}/repository/ymu-hosted/</url>
         </repository>
     </distributionManagement>
 </project>
